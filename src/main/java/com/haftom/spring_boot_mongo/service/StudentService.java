@@ -3,6 +3,9 @@ package com.haftom.spring_boot_mongo.service;
 import com.haftom.spring_boot_mongo.entity.Student;
 import com.haftom.spring_boot_mongo.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -48,5 +51,15 @@ public class StudentService {
 
     public List<Student> getStudentsByNameOrEmail(String name, String email) {
         return studentRepository.findByNameOrEmail(name, email);
+    }
+
+    public List<Student> getStudentsWithPagination(int pageNo, int pageSize) {
+        Pageable pageable = PageRequest.of(pageNo - 1, pageSize); //skip = (pageNo - 1) * pageSize
+        return studentRepository.findAll(pageable).getContent();
+    }
+    //Sort Students by name in ascending
+    public List<Student> getAndSortStudents() {
+        Sort sort = Sort.by(Sort.Direction.ASC, "name");
+        return studentRepository.findAll(sort);
     }
 }

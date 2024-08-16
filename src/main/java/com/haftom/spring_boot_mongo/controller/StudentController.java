@@ -67,4 +67,16 @@ public class StudentController {
         return studentService.getStudentsByNameOrEmail(name, email);
     }
 
+    //Retrieve Students based on pagination
+    @GetMapping("/students/pages")
+    public List<Student> getStudentsPagination(@RequestParam int pageNo, @RequestParam int pageSize){
+        return studentService.getStudentsWithPagination(pageNo, pageSize);
+    }
+
+    //Sort Students by name
+    @GetMapping("/students/sort")
+    public List<Student> getAndSortStudents(){
+        return studentService.getAndSortStudents();
+    }
+
 }
