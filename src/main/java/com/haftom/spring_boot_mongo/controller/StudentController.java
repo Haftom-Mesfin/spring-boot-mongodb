@@ -38,15 +38,33 @@ public class StudentController {
 
     //Update a Student
     @PutMapping("/student")
-    public Student updateStudent(@RequestBody Student student){
+    public Student updateStudent(@RequestBody Student student) {
         //this works for saving(if no id provided in the request body) or updating a student
         return studentService.updateStudent(student);
     }
 
     //Delete a Student by id
     @DeleteMapping("/student/{id}")
-    public String deleteStudent(@PathVariable String id){
+    public String deleteStudent(@PathVariable String id) {
         return studentService.deleteStudent(id);
+    }
+
+    //Retrieve documents using Student name
+    @GetMapping("/students/{name}")
+    public List<Student> getStudentByName(@PathVariable String name){
+        return studentService.getStudentsByName(name);
+    }
+
+    //Retrieve documents using Student name and email
+    @GetMapping("/students/byNameAndEmail")
+    public List<Student> getStudentsByNameAndEmail(@RequestParam String name, @RequestParam String email){
+        return studentService.getStudentsByNameAndEmail(name, email);
+    }
+
+    //Retrieve documents using Student name or email
+    @GetMapping("/students/byNameOrEmail")
+    public List<Student> getStudentsByNameOrEmail(@RequestParam String name, @RequestParam String email){
+        return studentService.getStudentsByNameOrEmail(name, email);
     }
 
 }
