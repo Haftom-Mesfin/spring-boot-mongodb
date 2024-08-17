@@ -78,5 +78,28 @@ public class StudentController {
     public List<Student> getAndSortStudents(){
         return studentService.getAndSortStudents();
     }
+    //Get Documents By Sub Document Field - department name
+    @GetMapping("/students/department")
+    public List<Student> getStudentsByDepartName(@RequestParam String departmentName){
+        return studentService.getStudentsByDepartName(departmentName.toUpperCase());
+    }
+
+    // Get Documents By Sub Document Field - subject name
+    @GetMapping("/students/subject")
+    public List<Student> getStudentsBySubjectName(@RequestParam String subjectName){
+        return studentService.getStudentsBySubjectName(subjectName);
+    }
+
+    //Get Students whose their email contains yahoo.com
+    @GetMapping("/students/email")
+    public List<Student> getStudents(@RequestParam String email){
+        return studentService.emailLike(email);
+    }
+
+    //Get Students whose names starts with ...
+    @GetMapping("/students/start")
+    public List<Student> getStudentsStartsWith(@RequestParam String name){
+        return studentService.getStudentsStartsWith(name);
+    }
 
 }

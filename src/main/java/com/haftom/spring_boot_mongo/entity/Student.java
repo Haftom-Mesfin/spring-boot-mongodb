@@ -1,6 +1,7 @@
 package com.haftom.spring_boot_mongo.entity;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.List;
@@ -14,6 +15,8 @@ public class Student {
     private String email;
     private Department department;
     private List<Subject> subjects;
+    @Transient
+    private double percentage;
 
     public String getId() {
         return id;
@@ -53,5 +56,20 @@ public class Student {
 
     public void setSubjects(List<Subject> subjects) {
         this.subjects = subjects;
+    }
+
+    public double getPercentage() {
+        if(subjects != null | subjects.size() > 0){
+            int total = 0;
+            for(Subject subject : subjects){
+                total += subject.getMarksObtained();
+            }
+            return total / subjects.size();
+        }
+        return 0.00;
+    }
+
+    public void setPercentage(double percentage) {
+        this.percentage = percentage;
     }
 }
